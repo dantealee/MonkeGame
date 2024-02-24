@@ -1,0 +1,128 @@
+[gd_scene load_steps=15 format=3 uid="uid://j3r342658lg6"]
+
+[ext_resource type="PackedScene" uid="uid://dx7thqhuqts8t" path="res://Scenes/jump_pad.tscn" id="1_t3sap"]
+[ext_resource type="PackedScene" uid="uid://c4ghky6subrts" path="res://Scenes/character.tscn" id="2_pmbei"]
+[ext_resource type="PackedScene" uid="uid://dmxaj17aism6b" path="res://Scenes/jump_pad_red.tscn" id="2_toj2u"]
+[ext_resource type="PackedScene" uid="uid://bi0aydthriaga" path="res://Scenes/unripebanana.tscn" id="3_55duf"]
+[ext_resource type="PackedScene" uid="uid://bjte0h8mda63u" path="res://Scenes/banana.tscn" id="4_fjf4l"]
+[ext_resource type="PackedScene" uid="uid://b4m1cbvccj5i5" path="res://Scenes/hud.tscn" id="5_aoktf"]
+[ext_resource type="Texture2D" uid="uid://bulwdhugskv4p" path="res://Sprites/Sky.png" id="6_d64q3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yu3kj"]
+size = Vector2(1158, 17)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f54ab"]
+
+[sub_resource type="Gradient" id="Gradient_6drwg"]
+colors = PackedColorArray(0.318311, 0.703004, 0.240855, 1, 0.318311, 0.703004, 0.240855, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dnuts"]
+gradient = SubResource("Gradient_6drwg")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6twde"]
+size = Vector2(40, 4173)
+
+[sub_resource type="BoxMesh" id="BoxMesh_iy63x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u0rgi"]
+size = Vector2(129.5, 4154)
+
+[node name="Test_World" type="Node2D"]
+
+[node name="Collectables" type="Node2D" parent="."]
+
+[node name="Banana" parent="Collectables" instance=ExtResource("4_fjf4l")]
+position = Vector2(840, 37)
+
+[node name="UnripeBanana" parent="Collectables" instance=ExtResource("3_55duf")]
+position = Vector2(584, 302)
+
+[node name="JumpPads" type="Node2D" parent="."]
+
+[node name="Green" type="Node2D" parent="JumpPads"]
+
+[node name="JumpPad" parent="JumpPads/Green" instance=ExtResource("1_t3sap")]
+position = Vector2(521, 482)
+
+[node name="JumpPad2" parent="JumpPads/Green" instance=ExtResource("1_t3sap")]
+position = Vector2(800, 188)
+
+[node name="JumpPad3" parent="JumpPads/Green" instance=ExtResource("1_t3sap")]
+position = Vector2(309, 51)
+
+[node name="JumpPad4" parent="JumpPads/Green" instance=ExtResource("1_t3sap")]
+position = Vector2(496, -233)
+
+[node name="JumpPad5" parent="JumpPads/Green" instance=ExtResource("1_t3sap")]
+position = Vector2(226, -465)
+
+[node name="JumpPad6" parent="JumpPads/Green" instance=ExtResource("1_t3sap")]
+position = Vector2(764, -597)
+
+[node name="JumpPad7" parent="JumpPads/Green" instance=ExtResource("1_t3sap")]
+position = Vector2(412, -772)
+
+[node name="JumpPad8" parent="JumpPads/Green" instance=ExtResource("1_t3sap")]
+position = Vector2(206, -1290)
+
+[node name="Red" type="Node2D" parent="JumpPads"]
+
+[node name="JumpPadRed" parent="JumpPads/Red" instance=ExtResource("2_toj2u")]
+position = Vector2(548, -1070)
+
+[node name="Character" parent="." instance=ExtResource("2_pmbei")]
+position = Vector2(304, 494)
+
+[node name="Camera2D" type="Camera2D" parent="Character"]
+limit_left = 0
+limit_right = 1150
+limit_bottom = 800
+editor_draw_limits = true
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+position = Vector2(79, 649)
+
+[node name="Floor" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(496, 1.5)
+shape = SubResource("RectangleShape2D_yu3kj")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="Boundaries/Floor"]
+position = Vector2(19.5, 83.5)
+scale = Vector2(1529, -184.143)
+mesh = SubResource("BoxMesh_f54ab")
+texture = SubResource("GradientTexture1D_dnuts")
+
+[node name="WallL" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(-118, -2078.5)
+shape = SubResource("RectangleShape2D_6twde")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Boundaries/WallL"]
+position = Vector2(-52.9515, -428.675)
+scale = Vector2(143.903, 5003.17)
+mesh = SubResource("BoxMesh_iy63x")
+
+[node name="WallR" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(1089.75, -2083)
+shape = SubResource("RectangleShape2D_u0rgi")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Boundaries/WallR"]
+position = Vector2(36.25, -423.505)
+scale = Vector2(207.806, 5000)
+mesh = SubResource("BoxMesh_iy63x")
+
+[node name="HUD" parent="." instance=ExtResource("5_aoktf")]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(0, 2000)
+
+[node name="Sky" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+z_index = -1
+texture_filter = 3
+position = Vector2(538, -227)
+scale = Vector2(1.128, 1)
+texture = ExtResource("6_d64q3")
+
+[connection signal="body_entered" from="Collectables/Banana" to="HUD" method="_on_banana_body_entered"]
+[connection signal="body_entered" from="Collectables/UnripeBanana" to="HUD" method="_on_unripe_banana_body_entered"]
