@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4ghky6subrts"]
+
+[ext_resource type="Script" path="res://Scripts/character.gd" id="1_mb64o"]
+[ext_resource type="Texture2D" uid="uid://cdv1tijv7k6wu" path="res://Sprites/PlayerMonke/MonkePlayer.png" id="2_ypdb1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jo434"]
+size = Vector2(19.6667, 23)
+
+[node name="Character" type="CharacterBody2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_mb64o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.83333, 3.5)
+shape = SubResource("RectangleShape2D_jo434")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-2.33333, 0)
+metadata/_edit_group_ = true
+
+[node name="MonkePlayer" type="Sprite2D" parent="Marker2D"]
+texture_filter = 1
+position = Vector2(0.666666, 3)
+texture = ExtResource("2_ypdb1")

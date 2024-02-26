@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://dmxaj17aism6b"]
+
+[ext_resource type="Script" path="res://Scripts/jump_pad_red.gd" id="1_h4vjp"]
+[ext_resource type="Texture2D" uid="uid://ctih0cjgent4d" path="res://Sprites/Branch.png" id="2_tmvqf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1enib"]
+size = Vector2(100, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jkenr"]
+
+[sub_resource type="Gradient" id="Gradient_8ad7i"]
+offsets = PackedFloat32Array(0, 0.477419, 1)
+colors = PackedColorArray(0.707146, 0.43951, 0.0523842, 1, 0.522131, 0.334344, 0.125844, 1, 0.383403, 0.218477, 0.00127364, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bssve"]
+gradient = SubResource("Gradient_8ad7i")
+fill_from = Vector2(0.513761, 0.972477)
+fill_to = Vector2(0.522936, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obbf0"]
+size = Vector2(100, 11)
+
+[node name="JumpPadRed" type="Area2D"]
+position = Vector2(96, 0)
+scale = Vector2(3, 1.5)
+script = ExtResource("1_h4vjp")
+
+[node name="BounceCollision" type="CollisionShape2D" parent="."]
+position = Vector2(18, -11.5)
+shape = SubResource("RectangleShape2D_1enib")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(18, -6)
+scale = Vector2(100, 14.3)
+mesh = SubResource("BoxMesh_jkenr")
+texture = SubResource("GradientTexture2D_bssve")
+
+[node name="SolidBottom" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="SolidCollision" type="CollisionShape2D" parent="SolidBottom"]
+position = Vector2(18, -4.5)
+shape = SubResource("RectangleShape2D_obbf0")
+one_way_collision = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(18.01, -5.89167)
+scale = Vector2(0.327934, 0.7225)
+texture = ExtResource("2_tmvqf")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered" flags=18]
